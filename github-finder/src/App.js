@@ -1,7 +1,8 @@
 function App() {
   return (
     <div className="bg-purple-500">
-      <h1 className="text-3xl font-bold underline">헬로우 월드!</h1>
+      <h1 className="text-xl">헬로우 월드!</h1>
+      <button className="btn">클릭!</button>
     </div>
   );
 }
