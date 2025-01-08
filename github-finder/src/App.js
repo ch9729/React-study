@@ -1,9 +1,29 @@
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
+import { GithubProvider } from "./context/github/GithubContext";
+
 function App() {
   return (
-    <div className="bg-purple-500">
-      <h1 className="text-xl">헬로우 월드!</h1>
-      <button className="btn">클릭!</button>
-    </div>
+    <GithubProvider>
+      <BrowserRouter>
+        <div className="flex flex-col justify-between h-screen">
+          <Navbar title={"Github Finder"} />
+          <main className="container mx-auto px-3 pb-12">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/notfound" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </GithubProvider>
   );
 }
 
