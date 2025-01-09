@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import GithubContext from "../../context/github/GithubContext";
 
-const UserSearch = () => {
+const UserSearch = ({ handleAlert }) => {
   const [text, setText] = useState("");
 
   const { searchUsers } = useContext(GithubContext);
@@ -14,7 +14,7 @@ const UserSearch = () => {
     e.preventDefault();
 
     if (text === "") {
-      alert("내용을 입력해주세요");
+      handleAlert("내용을 입력해주세요");
     } else {
       //유저찾기
       searchUsers(text);
