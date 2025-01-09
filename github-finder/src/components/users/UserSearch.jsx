@@ -4,7 +4,7 @@ import GithubContext from "../../context/github/GithubContext";
 const UserSearch = ({ handleAlert }) => {
   const [text, setText] = useState("");
 
-  const { searchUsers } = useContext(GithubContext);
+  const { searchUsers, clearUser } = useContext(GithubContext);
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -48,7 +48,9 @@ const UserSearch = ({ handleAlert }) => {
         </form>
       </div>
       <div>
-        <button className="btn btn-ghost btn-lg">Clear</button>
+        <button onClick={clearUser} className="btn btn-ghost btn-lg">
+          Clear
+        </button>
       </div>
     </div>
   );

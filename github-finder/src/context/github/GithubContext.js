@@ -8,6 +8,7 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 // 프로바이더가 전역으로 컨텍스트를 적용함
 export const GithubProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
+  const [repos, setRepos] = useState([]);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   // 키워드로 유저 리스트
@@ -27,6 +28,7 @@ export const GithubProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
+  // 깃허브 아이디로 유저 찾기
   const getUser = (login) => {
     setLoading(true);
 
@@ -41,10 +43,45 @@ export const GithubProvider = ({ children }) => {
         setLoading(false);
       })
       .catch((err) => (window.location = "/notfound"));
+    getRepository(login);
   };
+
+  // 유저들 클리어
+  const clearUser = () => {
+    setUsers([]);
+  };
+
+  // 공개 리포지토리
+  const getRepository = (login) => {
+    setLoading(true);
+    const params = new URLSearchParams({
+      sort: "created",
+      per_page: 10,
+    });
+    const response = fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setRepos(data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <GithubContext.Provider
-      value={{ users, loading, searchUsers, getUser, user }}
+      value={{
+        users,
+        loading,
+        searchUsers,
+        getUser,
+        user,
+        clearUser,
+        repos,
+      }}
     >
       {children}
     </GithubContext.Provider>
