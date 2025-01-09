@@ -7,7 +7,8 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 // 프로바이더가 전역으로 컨텍스트를 적용함
 export const GithubProvider = ({ children }) => {
-  const [users, SetUsers] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   // 키워드로 유저 리스트
   const searchUsers = (text) => {
@@ -20,13 +21,31 @@ export const GithubProvider = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        SetUsers(data.items);
+        setUsers(data.items);
         setLoading(false);
       })
       .catch((err) => console.log(err));
   };
+
+  const getUser = (login) => {
+    setLoading(true);
+
+    const response = fetch(`${GITHUB_URL}/users/${login}`, {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+        setLoading(false);
+      })
+      .catch((err) => (window.location = "/notfound"));
+  };
   return (
-    <GithubContext.Provider value={{ users, loading, searchUsers }}>
+    <GithubContext.Provider
+      value={{ users, loading, searchUsers, getUser, user }}
+    >
       {children}
     </GithubContext.Provider>
   );
