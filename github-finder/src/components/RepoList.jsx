@@ -1,4 +1,5 @@
 import React from "react";
+import RepoItem from "./layout/RepoItem";
 
 const RepoList = ({ repos }) => {
   return (
@@ -8,7 +9,7 @@ const RepoList = ({ repos }) => {
           최근 리포 10개 표시
         </h2>
         {repos.map((repo) => (
-          <h3 key={repo.id}>{repo.name}</h3>
+          <RepoItem key={repo.id} repo={repo} />
         ))}
       </div>
     </div>
