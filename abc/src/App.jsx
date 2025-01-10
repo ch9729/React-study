@@ -1,19 +1,13 @@
-import { useState } from "react";
 import "./App.css";
-import Button from "./components/Button";
-import Counter from "./components/Counter";
+import Input from "./components/Input";
+import Lists from "./components/Lists";
 
 function App() {
-  const [number, setNumber] = useState(0);
-
-  const upDateButton = (value) => {
-    setNumber(number + value);
-  };
   return (
-    <>
-      <Counter number={number} />
-      <Button upDateButton={upDateButton} />
-    </>
+    <div>
+      <Input />
+      <Lists />
+    </div>
   );
 }
 
