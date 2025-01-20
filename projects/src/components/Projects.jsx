@@ -9,15 +9,6 @@ const Projects = () => {
         <div className="title-underline"></div>
       </div>
       <div className="projects-center">
-        {/* <a
-          href="https://react-vite-projects-1-birthday-buddy.netlify.app/"
-          target="_blank"
-          rel="noreferrer"
-          className="project"
-        >
-          <img src={p1} alt="birthday buddy" className="img" />
-          <h5>birthday buddy</h5>
-        </a> */}
         {projects.map((project) => (
           <a
             key={project.id}
