@@ -1,7 +1,11 @@
 import "./App.css";
+import LoginPage from "./components/Authentication/LoginPage";
+import CartPage from "./components/Cart/CartPage";
 import HomePage from "./components/Home/HomePage";
+import MyOrderPage from "./components/MyOrder/MyOrderPage";
 import Navbar from "./components/Navbar/Navbar";
 import ProductsPage from "./components/products/ProductsPage";
+import SingleProductPage from "./components/singleProduct/SingleProductPage";
 
 function App() {
   return (
@@ -9,7 +13,11 @@ function App() {
       <Navbar />
       <main>
         {/* <HomePage /> */}
-        <ProductsPage />
+        {/* <ProductsPage /> */}
+        {/* <SingleProductPage /> */}
+        {/* <CartPage /> */}
+        {/* <MyOrderPage /> */}
+        <LoginPage />
       </main>
     </div>
   );
