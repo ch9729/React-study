@@ -2,3 +2,24 @@
   width: 25px;
   margin-left: 5px;
 }
+
+.category_name {
+  display: flex;
+  gap: 15px;
+  font-size: 30px;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 15px 0;
+}
+
+.category_name > .link_emoji {
+  width: 40px;
+}
+
+.category_name:hover {
+  font-weight: 700;
+  color: blue;
+  background-color: silver;
+  border-radius: 10px;
+  transform: scale(1.1);
+}
