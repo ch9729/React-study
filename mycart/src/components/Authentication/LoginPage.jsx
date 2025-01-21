@@ -1,42 +1,56 @@
 import { useRef, useState } from "react";
 import "./LoginPage.css";
+import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
   // const passwordRef = useRef(null);
 
-  const [user, setUser] = useState({ email: "", password: "" });
+  // const [user, setUser] = useState({ email: "", password: "" });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(user);
-    setUser({ email: "", password: "" });
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(user);
+  //   setUser({ email: "", password: "" });
+  // };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const submitData = (formData) => console.log(formData);
   return (
     <section className="align_center form_page">
-      <form className="authentication_form" onSubmit={handleSubmit}>
+      <form
+        className="authentication_form"
+        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit(submitData)}
+      >
         <h2>로그인 폼</h2>
         <div className="form_inputs">
           <div>
             <label htmlFor="email">Email</label>
             <input
-              type="email"
-              id="email"
+              // type="email"
+              // id="email"
               className="form_text_input"
               placeholder="이메일 입력..."
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
-              value={user.email}
+              {...register("email")}
+              //onChange={(e) => setUser({ ...user, email: e.target.value })}
+              //value={user.email}
             />
           </div>
           <div>
             <label htmlFor="password">Password</label>
             <input
               // ref={passwordRef}
-              type="password"
-              id="password"
+              // type="password"
+              // id="password"
               className="form_text_input"
               placeholder="패스워드"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
-              value={user.password}
+              {...register("password")}
+              //onChange={(e) => setUser({ ...user, password: e.target.value })}
+              //value={user.password}
             />
             {/* <button
               type="button"
