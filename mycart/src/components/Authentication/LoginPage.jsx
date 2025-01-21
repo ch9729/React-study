@@ -35,7 +35,7 @@ const LoginPage = () => {
           <div>
             <label htmlFor="email">Email</label>
             <input
-              type="email"
+              //type="email"
               id="email"
               className="form_text_input"
               placeholder="이메일 입력..."
