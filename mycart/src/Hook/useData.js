@@ -20,7 +20,7 @@ const useData = (url, customConfig, deps) => {
           setIsLoading(false);
         });
     },
-    deps ? deps : []
+    deps ? deps : [] // 카테고리가 기본적으로 없을때는 []를 나열하고, 카테고리를 선택했을 경우 해당 카테고리로 선택
   );
   return { data, error, isLoading };
 };

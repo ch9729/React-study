@@ -3,20 +3,29 @@ import ProductCard from "./ProductCard";
 import useData from "../../Hook/useData";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "../Common/Pagination";
 
 const ProductsList = () => {
   const [search, setSearch] = useSearchParams(); // 요청주소 뒤의 쿼리스트링
   const category = search.get("category"); // category=값을 가져온다.
+  const page = search.get("page"); // 몇번째 페이지
   const { data, error, isLoading } = useData(
     "products",
     {
       params: {
         category,
+        page,
       },
     },
-    [category]
+    [category, page]
   );
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  const handlePageChange = (page) => {
+    // 기존의 검색한 카테고리가 있으면 유지하면서 페이지만 업데이트
+    const currentParams = Object.fromEntries([...search]);
+    setSearch({ ...currentParams, page: page });
+  };
 
   return (
     <section className="products_list_section">
@@ -35,6 +44,7 @@ const ProductsList = () => {
         {error && <em className="form_error">{error}</em>}
         {isLoading && skeletons.map((n) => <ProductCardSkeleton key={n} />)}
         {data.products &&
+          !isLoading &&
           data.products.map((product) => (
             <ProductCard
               key={product._id}
@@ -47,6 +57,14 @@ const ProductsList = () => {
             />
           ))}
       </div>
+      {data && (
+        <Pagination
+          total={data.totalProducts}
+          perPage={8}
+          onClick={handlePageChange}
+          currentPage={page}
+        />
+      )}
     </section>
   );
 };
