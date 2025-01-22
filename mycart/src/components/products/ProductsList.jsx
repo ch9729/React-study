@@ -2,9 +2,20 @@ import "./ProductsList.css";
 import ProductCard from "./ProductCard";
 import useData from "../../Hook/useData";
 import ProductCardSkeleton from "./ProductCardSkeleton";
+import { useSearchParams } from "react-router-dom";
 
 const ProductsList = () => {
-  const { data, error, isLoading } = useData("products");
+  const [search, setSearch] = useSearchParams(); // 요청주소 뒤의 쿼리스트링
+  const category = search.get("category"); // category=값을 가져온다.
+  const { data, error, isLoading } = useData(
+    "products",
+    {
+      params: {
+        category,
+      },
+    },
+    [category]
+  );
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
