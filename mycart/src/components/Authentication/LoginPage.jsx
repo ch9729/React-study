@@ -15,10 +15,13 @@ const LoginPage = () => {
   const submitData = async (formData) => {
     try {
       await login(formData);
-      window.location = "/"; // 로그인 이후 홈페이지로
+      window.location = "/"; // 로그인 이후 메인 홈페이지로
     } catch (error) {
       setFormError("아이디 혹은 비밀번호가 틀렸습니다.");
-      reset();
+      setTimeout(() => {
+        setFormError("");
+      }, 3000);
+      // setFormError("아이디 혹은 비밀번호가 틀렸습니다.");
     }
   };
   return (

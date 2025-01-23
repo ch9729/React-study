@@ -22,9 +22,12 @@ const SignupPage = () => {
   const submitData = async (formData) => {
     try {
       await signup(formData, profilePic);
-      window.location = "/"; // 회원가입 이후 홈페이지로
+      window.location = "/"; // 회원가입 이후 메인 홈페이지로
     } catch (error) {
       setFormError("동일한 이메일이 존재합니다.");
+      setTimeout(() => {
+        setFormError("");
+      }, 3000);
     }
   };
 
