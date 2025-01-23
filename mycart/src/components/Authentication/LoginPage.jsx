@@ -1,17 +1,10 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import "./LoginPage.css";
 import { useForm } from "react-hook-form";
+import { login } from "../../services/userServices";
 
 const LoginPage = () => {
-  // const passwordRef = useRef(null);
-
-  // const [user, setUser] = useState({ email: "", password: "" });
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(user);
-  //   setUser({ email: "", password: "" });
-  // };
+  const [formError, setFormError] = useState("");
   const {
     register,
     handleSubmit,
@@ -19,9 +12,14 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
-  const submitData = (formData) => {
-    console.log(formData);
-    reset();
+  const submitData = async (formData) => {
+    try {
+      await login(formData);
+      window.location = "/"; // 로그인 이후 홈페이지로
+    } catch (error) {
+      setFormError("아이디 혹은 비밀번호가 틀렸습니다.");
+      reset();
+    }
   };
   return (
     <section className="align_center form_page">
@@ -87,7 +85,7 @@ const LoginPage = () => {
               비밀번호 보이게
             </button> */}
           </div>
-
+          {formError && <em className="form_error">{formError}</em>}
           <button type="submit" className="search_button form_submit">
             Submit
           </button>

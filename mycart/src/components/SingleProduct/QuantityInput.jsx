@@ -6,7 +6,7 @@ const QuantityInput = ({ quantity, setQuantity, stock }) => {
       <button
         className="quantity_input_button"
         onClick={() => setQuantity((prev) => prev - 1)}
-        disabled={quantity <= 0}
+        disabled={quantity <= 1}
       >
         {" "}
         -{" "}
