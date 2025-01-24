@@ -50,6 +50,7 @@ function App() {
     const oldCart = [...cart];
     const newCart = oldCart.filter((item) => item.product._id !== id);
     setCart(newCart);
+    setDelivery(0);
     removeFromCartAPI(id).catch((err) => {
       toast.error("장바구니 상품 삭제 에러");
     });
@@ -111,6 +112,7 @@ function App() {
           updateCart,
           delivery,
           setDelivery,
+          setCart,
         }}
       >
         <div className="app">

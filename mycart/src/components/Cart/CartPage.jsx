@@ -5,15 +5,26 @@ import QuantityInput from "../singleProduct/QuantityInput";
 import { useEffect, useState, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import CartContext from "../contexts/CartContext";
+import { checkoutAPI } from "../../services/orderServices";
+import { toast } from "react-toastify";
 
 const CartPage = () => {
   const [subTotal, setSubTotal] = useState(0);
   const user = useContext(UserContext);
-  const { cart, removeFromCart, updateCart, delivery, setDelivery } =
+  const { cart, removeFromCart, updateCart, delivery, setDelivery, setCart } =
     useContext(CartContext);
-  // const [delivery, setDelivery] = useState(0);
-  console.log(user);
 
+  const checkout = () => {
+    const oldCart = [...cart];
+    setCart([]); // 카트 비우기
+    setDelivery(0);
+    checkoutAPI()
+      .then(() => toast.success("주문성공"))
+      .catch((err) => {
+        toast.error("주문실패");
+        setCart(oldCart); // 이전 장바구니 복구
+      });
+  };
   useEffect(() => {
     let total = 0;
     cart.forEach((item) => {
@@ -21,7 +32,7 @@ const CartPage = () => {
     });
     setSubTotal(total);
     if (total === 0) {
-      delivery;
+      setDelivery(0);
     } else if (total > 0) {
       setDelivery(5000);
     }
@@ -86,7 +97,9 @@ const CartPage = () => {
         </tbody>
       </table>
 
-      <button className="search_button checkout_button">결재하기</button>
+      <button className="search_button checkout_button" onClick={checkout}>
+        결재하기
+      </button>
     </section>
   );
 };
