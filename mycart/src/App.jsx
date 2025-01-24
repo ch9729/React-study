@@ -6,7 +6,13 @@ import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
 import { jwtDecode } from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { addToCartAPI, getCartAPI } from "./services/cartServices";
+import {
+  addToCartAPI,
+  getCartAPI,
+  removeFromCartAPI,
+} from "./services/cartServices";
+import UserContext from "./components/contexts/UserContext";
+import CartContext from "./components/contexts/CartContext";
 
 // 만약 토큰이 있으면 axios 설정에 추가됨
 setAuthToken(localStorage.getItem("token"));
@@ -35,6 +41,34 @@ function App() {
         toast.error("상품 추가 실패하였습니다.");
       });
   };
+
+  //제품 삭제
+  const removeFromCart = (id) => {
+    const oldCart = [...cart];
+    const newCart = oldCart.filter((item) => item.product._id !== id);
+    setCart(newCart);
+    removeFromCartAPI(id).catch((err) => {
+      toast.error("장바구니 상품 삭제 에러");
+    });
+  };
+
+  //장바구니 상품 증가 감소
+  const updateCart = (type, id) => {
+    const updatedCart = [...cart];
+    const productIndex = updatedCart.findIndex(
+      (item) => item.product._id === id
+    );
+
+    if (type === "increase") {
+      updatedCart[productIndex].quantity += 1;
+      setCart(updatedCart);
+    }
+    if (type === "decrease") {
+      updatedCart[productIndex].quantity -= 1;
+      setCart(updatedCart);
+    }
+  };
+
   // 서버에서 장바구니 정보 가져옴
   const getCart = () => {
     getCartAPI()
@@ -61,14 +95,21 @@ function App() {
   useEffect(() => {
     if (user) getCart();
   }, [user]);
+
   return (
-    <div className="app">
-      <Navbar user={user} cartCount={cart.length} />
-      <main>
-        <ToastContainer position="bottom-right" />
-        <Routing addToCart={addToCart} cart={cart} />
-      </main>
-    </div>
+    <UserContext.Provider value={user}>
+      <CartContext.Provider
+        value={{ cart, addToCart, removeFromCart, updateCart }}
+      >
+        <div className="app">
+          <Navbar user={user} cartCount={cart.length} />
+          <main>
+            <ToastContainer position="bottom-right" />
+            <Routing />
+          </main>
+        </div>
+      </CartContext.Provider>
+    </UserContext.Provider>
   );
 }
 
