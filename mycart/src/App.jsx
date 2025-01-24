@@ -119,7 +119,7 @@ function App() {
           <Navbar user={user} cartCount={cart.length} />
           <main>
             <ToastContainer position="bottom-right" />
-            <Routing />
+            <Routing user={user} />
           </main>
         </div>
       </CartContext.Provider>
