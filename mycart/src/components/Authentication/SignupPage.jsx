@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-
 import "./SignupPage.css";
 import user from "../../assets/user.webp";
 import { useState } from "react";
@@ -8,8 +7,6 @@ import { signup } from "../../services/userServices";
 const SignupPage = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [formError, setFormError] = useState("");
-
-  console.log(profilePic);
 
   const {
     register,

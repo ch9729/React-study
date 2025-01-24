@@ -5,6 +5,7 @@ import { login } from "../../services/userServices";
 
 const LoginPage = () => {
   const [formError, setFormError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -24,6 +25,7 @@ const LoginPage = () => {
       // setFormError("아이디 혹은 비밀번호가 틀렸습니다.");
     }
   };
+
   return (
     <section className="align_center form_page">
       <form
@@ -57,7 +59,6 @@ const LoginPage = () => {
           <div>
             <label htmlFor="password">Password</label>
             <input
-              // ref={passwordRef}
               type="password"
               id="password"
               className="form_text_input"
@@ -72,9 +73,7 @@ const LoginPage = () => {
               //onChange={(e) => setUser({ ...user, password: e.target.value })}
               //value={user.password}
             />
-            {errors.password && (
-              <em className="form_error">{errors.password.message}</em>
-            )}
+
             {/* <button
               type="button"
               onClick={() => (passwordRef.current.type = "password")}

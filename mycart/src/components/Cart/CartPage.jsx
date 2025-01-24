@@ -10,6 +10,7 @@ const CartPage = () => {
   const [subTotal, setSubTotal] = useState(0);
   const user = useContext(UserContext);
   const { cart, removeFromCart, updateCart } = useContext(CartContext);
+  const [delivery, setDelivery] = useState(0);
   console.log(user);
 
   useEffect(() => {
@@ -18,6 +19,11 @@ const CartPage = () => {
       total += item.product.price * item.quantity;
     });
     setSubTotal(total);
+    // if (subTotal === 0) {
+    //   delivery;
+    // } else if (subTotal > 0) {
+    //   setDelivery(5000);
+    // }
   }, [cart]);
 
   return (
