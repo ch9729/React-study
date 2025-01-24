@@ -22,6 +22,7 @@ setAuthToken(localStorage.getItem("token"));
 function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
+  const [delivery, setDelivery] = useState(0);
 
   const addToCart = (product, quantity) => {
     const updatedCart = [...cart]; // 장바구니 복사
@@ -103,7 +104,14 @@ function App() {
   return (
     <UserContext.Provider value={user}>
       <CartContext.Provider
-        value={{ cart, addToCart, removeFromCart, updateCart }}
+        value={{
+          cart,
+          addToCart,
+          removeFromCart,
+          updateCart,
+          delivery,
+          setDelivery,
+        }}
       >
         <div className="app">
           <Navbar user={user} cartCount={cart.length} />

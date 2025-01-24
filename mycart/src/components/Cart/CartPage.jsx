@@ -9,8 +9,9 @@ import CartContext from "../contexts/CartContext";
 const CartPage = () => {
   const [subTotal, setSubTotal] = useState(0);
   const user = useContext(UserContext);
-  const { cart, removeFromCart, updateCart } = useContext(CartContext);
-  const [delivery, setDelivery] = useState(0);
+  const { cart, removeFromCart, updateCart, delivery, setDelivery } =
+    useContext(CartContext);
+  // const [delivery, setDelivery] = useState(0);
   console.log(user);
 
   useEffect(() => {
@@ -19,11 +20,11 @@ const CartPage = () => {
       total += item.product.price * item.quantity;
     });
     setSubTotal(total);
-    // if (subTotal === 0) {
-    //   delivery;
-    // } else if (subTotal > 0) {
-    //   setDelivery(5000);
-    // }
+    if (total === 0) {
+      delivery;
+    } else if (total > 0) {
+      setDelivery(5000);
+    }
   }, [cart]);
 
   return (
@@ -76,11 +77,11 @@ const CartPage = () => {
           </tr>
           <tr>
             <td>배송비</td>
-            <td>5,000 원</td>
+            <td>{delivery.toLocaleString("ko-KR")} 원</td>
           </tr>
           <tr className="cart_bill_final">
             <td>결재금액</td>
-            <td>{(subTotal + 5000).toLocaleString("ko-KR")} 원</td>
+            <td>{(subTotal + delivery).toLocaleString("ko-KR")} 원</td>
           </tr>
         </tbody>
       </table>
