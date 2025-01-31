@@ -14,10 +14,7 @@ const Routing = ({ user }) => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/products" element={<ProductsPage />} />
-      <Route
-        path="/product/:id"
-        element={user ? <Navigate to="/" /> : <SingleProductPage />}
-      />
+      <Route path="/product/:id" element={<SingleProductPage />} />
       <Route
         path="/signup"
         element={user ? <Navigate to="/" /> : <SignupPage />}

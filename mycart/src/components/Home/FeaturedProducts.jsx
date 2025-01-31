@@ -14,9 +14,11 @@ const FeaturedProducts = () => {
       <div className="align_center featured_products_list">
         {error && <em className="form_error">{error}</em>}
         {isLoading && skeletons.map((n) => <ProductCardSkeleton key={n} />)}
-        {data.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
+        {data &&
+          !isLoading &&
+          data.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
       </div>
     </section>
   );
